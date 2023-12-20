@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Jgo22zlVstVsOgAnOdTX06xuqTVhTYBA3j4Cv0EQm3U=",
+  "Hash": "x5Hv0jds8WINXsWwWyAEb/8hgbzzC5jsNVjrdO0Qez4=",
   "Source": "BookShop",
   "BasePath": "_content/BookShop",
   "Mode": "Default",
@@ -21894,6 +21894,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\category\\truyen-ngan-tan-van.jpg"
+    },
+    {
+      "Identity": "I:\\ĐỒ ÁN CHO TIẾN\\BookShop\\BookShop\\wwwroot\\images\\check.png",
+      "SourceId": "BookShop",
+      "SourceType": "Discovered",
+      "ContentRoot": "I:\\ĐỒ ÁN CHO TIẾN\\BookShop\\BookShop\\wwwroot\\",
+      "BasePath": "_content/BookShop",
+      "RelativePath": "images/check.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\check.png"
     },
     {
       "Identity": "I:\\ĐỒ ÁN CHO TIẾN\\BookShop\\BookShop\\wwwroot\\images\\new\\cf17a9_a803b833d3864af8936f2fbd507bc951~mv2.jpg",

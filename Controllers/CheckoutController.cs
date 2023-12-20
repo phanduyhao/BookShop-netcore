@@ -61,10 +61,11 @@ namespace BookShop.Controllers
         [Route("checkout.html", Name = "Checkout")]
         public IActionResult Index(MuaHangVM muaHang)
         {
-            //Lay ra gio hang de xu ly
+            // Retrieve cart and customer ID from session
             var cart = HttpContext.Session.Get<List<CartItem>>("GioHang");
             var taikhoanID = HttpContext.Session.GetString("CustomerId");
             MuaHangVM model = new MuaHangVM();
+
             if (taikhoanID != null)
             {
                 var khachhang = _context.Customers.AsNoTracking().SingleOrDefault(x => x.CustomerId == Convert.ToInt32(taikhoanID));
@@ -73,62 +74,74 @@ namespace BookShop.Controllers
                 model.Email = khachhang.Email;
                 model.Phone = khachhang.Phone;
                 model.Address = khachhang.Address;
+
+                // Update customer's address if it's available in the model
                 khachhang.Address = muaHang.Address;
                 _context.Update(khachhang);
                 _context.SaveChanges();
             }
+
             try
             {
                 if (ModelState.IsValid)
                 {
-                    //Khoi tao don hang
+                    // Create a new order
                     Order donhang = new Order();
                     donhang.CustomerId = model.CustomerId;
-
                     donhang.OrderDate = DateTime.Now;
-                    donhang.OrderStatus2 = 1;//Don hang moi
+                    donhang.OrderStatus2 = 1;
                     donhang.Deleted = false;
                     donhang.Paid = false;
                     donhang.Note = Utilities.StripHTML(model.Note);
-                   /* donhang.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));*/
+                    donhang.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));
+
                     _context.Add(donhang);
                     _context.SaveChanges();
-                    //tao danh sach don hang
 
+                    // Create order details for each item in the cart
                     foreach (var item in cart)
                     {
                         OrderDetail orderDetail = new OrderDetail();
                         orderDetail.OrderId = donhang.OrderId;
                         orderDetail.ProductId = item.product.ProductId;
                         orderDetail.Quanity = item.amount;
-                        /*orderDetail.Total = donhang.TotalMoney;*/
-/*                        orderDetail.Price = item.product.Price;
-*/                        orderDetail.Shipdate = DateTime.Now;
+                        orderDetail.Total = donhang.TotalMoney;
+                        orderDetail.Price = item.product.Price;
+                        orderDetail.Shipdate = DateTime.Now;
                         _context.Add(orderDetail);
                     }
+
                     _context.SaveChanges();
-                    //clear gio hang
+
+                    // Clear the shopping cart from the session
                     HttpContext.Session.Remove("GioHang");
-                    //Xuat thong bao
+
+                    // Show success notification
                     _notyfService.Success("Đơn hàng đặt thành công");
-                    //cap nhat thong tin khach hang
+
+                    // Redirect to the "Success" page
                     return RedirectToAction("Success");
-
-
                 }
             }
             catch
             {
+                // If there's an issue, return the same view with the cart
                 ViewBag.GioHang = cart;
                 return View(model);
             }
-            ViewBag.GioHang = cart;
-            return View(model);
+
+            // If ModelState is not valid, return the same view with the cart
+            return RedirectToAction("Index","News");
+
         }
+
         [Route("dat-hang-thanh-cong.html", Name = "Success")]
         public IActionResult Success()
         {
-            try
+            var cart = HttpContext.Session.Get<List<CartItem>>("GioHang");
+            ViewBag.GioHang = cart;
+
+            /*try
             {
                 var taikhoanID = HttpContext.Session.GetString("CustomerId");
                 if (string.IsNullOrEmpty(taikhoanID))
@@ -148,9 +161,9 @@ namespace BookShop.Controllers
                 return View(successVM);
             }
             catch
-            {
-                return View();
-            }
+            {*/
+            return View();
+/*            }*/
         }
        
     }

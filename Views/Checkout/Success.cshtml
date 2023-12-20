@@ -1,29 +1,52 @@
-﻿@model BookShop.ModelViews.MuaHangSuccessVM
-@{
+﻿@*@model BookShop.ModelViews.MuaHangSuccessVM
+*@@{
     ViewData["Title"] = "Mua hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<BookShop.ModelViews.CartItem> Carts = ViewBag.GioHang;
 
 }
-@*@section Styles{
-    <style type="text/css">
-        .nice-select .list {
-            border-radius: 0px;
-            overflow-y: auto;
-            overflow: hidden;
-            max-height: 200px;
-            overflow-y: scroll;
-        }
 
-        .nice-select .option:hover, .nice-select .option.focus, .nice-select .option.selected.focus {
-            color: red;
-            background: none;
-        }
-    </style>
-}*@
+<div class="container row mx-auto py-20">
+    <div class="container py-10 d-flex align-items-center justify-content-center">
+        <img class="w-10" src="~/images/check.png" />
+        <h1 class="mb-0 ms-4"> Đặt hàng thành công!</h1>
+    </div>
+    <h2>Đơn hàng: </h2>
+    <table class="table ms-20">
+        <thead>
+            <tr>
+                <th class="cart-product-name">SẢN PHẨM</th>
+                <th class="cart-product-total">THÀNH TIỀN</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Carts.Count() > 0)
+            {
+                foreach (var item in Carts)
+                {
+                    <tr class="cart_item">
+                        <td class="cart-product-name">
+                            @item.product.ProductName<strong class="product-quantity">
+                                × @item.amount
+                            </strong>
+                        </td>
+                        <td class="cart-product-total"><span class="amount">@item.TotalMoney.ToString("#,##0") VNĐ</span></td>
+                    </tr>
+                }
+            }
 
 
+        </tbody>
+        <tfoot>
+            <tr class="order-total">
+                <th>TỔNG ĐƠN HÀNG</th>
+                <td><strong><span class="amount">@Carts.Sum(x => x.TotalMoney).ToString("#,##0") VNĐ</span></strong></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
-<div class="bg-gray-weak">
+@*<div class="bg-gray-weak">
     <div class="container">
         <nav class="py-4 lh-30px" aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center py-1">
@@ -44,7 +67,7 @@
 
                         <div class="checkbox-form">
                             <h3 class="bg-success py-5 px-7 rounded-2" style="width:max-content;">Đặt hàng thành công</h3>
-                            @*<p>Mã đơn hàng: #@Model.DonHangID</p>*@
+                            <p>Mã đơn hàng: #@Model.DonHangID</p>
                             <p>Cảm ơn bạn đã đặt hàng</p>
                             <br />
                             <h3>THÔNG TIN ĐƠN HÀNG</h3>
@@ -64,4 +87,4 @@
 
         </div>
     </div>
-</main>
+</main>*@
