@@ -1,0 +1,37 @@
+﻿@model List<Product>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductId</td>
+            <td>
+                <div class="d-flex align-items-center"></div>
+                <img class="img-fluid rounded" src="~/assets/images/about17.jpg">
+                <h6 class="mb-3 ms-3">@item.ProductName</h6>
+            </td>
+            <td>@item.Cate.CateName</td>
+            <td>@item.Price.Value.ToString("#,##0") VNĐ</td>
+            <td>@item.UnitsInstock</td>
+            @if (item.UnitsInstock > 0)
+            {
+                <div class="d-flex align-items-center">
+                    <div class="badge badge-success badge-dot me-3"></div>
+                    <div>Còn hàng</div>
+                </div>
+            }else{
+                <div class="d-flex align-items-center">
+                    <div class="badge badge-success badge-dot me-3"></div>
+                    <div>Hết hàng</div>
+                </div>
+            }
+
+             <td class="text-end">
+                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn-success">View</a>
+                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Edit" asp-route-id="@item.ProductId" class="btn btn-warning">Edit</a>
+                <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@item.ProductId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+}
+

@@ -1,0 +1,82 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<BookShop.Models.Page>
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách Page" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <span class="breadcrumb-item active">Danh sách Page : trang @CurrentPage</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body  mt-4">
+        <div class="row mb-7">
+
+            <div class="col-lg-10 text-right">
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminPages" asp-action="Create"><i class="fa-solid fa-plus"></i><span class="ps-3">Thêm Page</span></a>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên Page</th>
+                        <th>Trạng thái</th>
+                        <th>MetaDesc</th>
+                        <th>MetaKey</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            string url = $"/{item.Alias}.html";
+                            <tr>
+                                <td>@item.PageId</td>
+                                <td><a target="_blank" href="@url">@item.PageName</a></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-success badge-dot me-4"></div>
+                                        <div>Public</div>
+                                    </div>
+                                </td>
+                                <td>@item.MetaDesc</td>
+                                <td>@item.MetaKey</td>
+                                <td>
+                                    <a class="btn btn-primary btn-tone me-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Details" asp-route-id="@item.PageId">Chi tiết</a>
+                                    <a class="btn btn-secondary btn-tone me-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Edit" asp-route-id="@item.PageId">Chỉnh sửa</a>
+                                    <a class="btn btn-success btn-tone me-2" asp-area="Admin" asp-controller="AdminPages" asp-action="Delete" asp-route-id="@item.PageId">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <div aria-label="Page navigation example">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminPages" asp-action="Index" />
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

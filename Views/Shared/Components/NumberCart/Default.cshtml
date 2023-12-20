@@ -1,0 +1,21 @@
+﻿@model List<BookShop.ModelViews.CartItem>
+
+<div class="px-6 me-n4 d-none d-xl-inline-block">
+    <a class="position-relative lh-1 color-inherit text-decoration-none"
+       href="#"
+       data-bs-toggle="offcanvas"
+       data-bs-target="#shoppingCart"
+       aria-controls="shoppingCart"
+       aria-expanded="false">
+        <svg class="icon icon-star-light">
+            <use xlink:href="#icon-shopping-bag-open-light"></use>
+        </svg>
+        @if(Model != null && Model.Count() > 0){
+            <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">@Model.Count()</span>
+
+        }else{
+            <span class="badge bg-dark text-white position-absolute top-0 start-100 translate-middle mt-4 rounded-circle fs-13px p-0 square" style="--square-size: 18px">0</span>
+
+        }
+    </a>
+</div>

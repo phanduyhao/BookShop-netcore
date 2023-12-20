@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BookShop.Models.Order>
+
+@{
+    ViewData["Title"] = "Danh sách đơn hàng " ;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="main-content">
+    <div class="page-header">
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Trang chủ</a>
+                <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">Danh sách đơn hàng</a>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row align-items-center mb-5"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select "><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="DataTables_Table_0_filter" class="dataTables_filter float-end"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div></div><div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting">ID</th>
+                                        <th class="sorting">Đơn hàng</th>
+                                        <th class="sorting">Ngày mua</th>
+                                        <th class="sorting">Tổng tiền</th>
+                                        <th class="sorting">Trạng thái</th>
+                                        <th class="sorting">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="">
+                                                    @item.OrderId
+                                                </td>
+                                                <td>
+                                                    @item.Customer.FullName
+                                                </td>
+                                                <td>
+                                                    @item.OrderDate
+                                                </td>
+                                                <td>
+                                                    @item.TotalMoney.Value.ToString("#,##0") VNĐ
+                                                </td>
+                                                <td>
+                                                    @item.OrderStatus
+                                                </td>
+                                                <td class="text-end">
+                                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-success">Chi tiết</a>
+                                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-warning">Chỉnh sửa</a>
+                                                    <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-danger">Xóa</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

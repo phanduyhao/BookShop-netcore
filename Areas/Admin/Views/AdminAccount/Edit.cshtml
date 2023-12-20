@@ -1,0 +1,52 @@
+﻿@model BookShop.Models.Account
+
+@{
+    ViewData["Title"] = "Thêm tài khoản quản trị";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card-body">
+    <h4>Chỉnh sửa thông tin</h4>
+    <div class="mt-10" style="max-width: 700px">
+        <form asp-controller="AdminAccount" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AccountId" />
+            <div class="row mt-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Họ và tên</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="FullName" placeholder="Họ và tên">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputPassword4">Số điện thoại</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="Phone" placeholder="Số điện thoại">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Email</label class="mb-2">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputEmail4">Mật khẩu</label class="mb-2">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Mật khẩu">
+                </div>
+            </div>
+            <div class="row my-3">
+                <div class="form-group col-md-6">
+                    <label class="mb-2" for="inputPassword4">Quyền truy cập</label class="mb-2">
+                    <select class="form-control" asp-for="RoleId" asp-items="@ViewBag.QuyenTruyCap" required>
+                        <option value="0" disabled selected>Chọn quyền truy cập</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <input asp-for="Active" type="checkbox">
+                    <label class="mb-2" for="Active">Active</label class="mb-2">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </form>
+    </div>
+
+</div>

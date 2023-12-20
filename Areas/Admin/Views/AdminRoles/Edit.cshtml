@@ -1,0 +1,36 @@
+﻿@model BookShop.Models.Role
+
+@{
+    ViewData["Title"] = "Chỉnh sửa quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="pagetitle">
+    <nav>
+        <ol class="breadcrumb">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Home</a>
+            <a asp-controller="Home" asp-area="AdminRoles" asp-action="Index" class="breadcrumb-item">Danh sách quyền truy cập</a>
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item active">Thông tin quyền truy cập</a>
+        </ol>
+    </nav>
+</div>
+<form class="row g-3" asp-action="Edit" asp-route-id="@Model.RoleId" method="post">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="RoleId" />
+   <div class="d-flex flex-column">
+        <div class="col-lg-4">
+            <div class="form-floating">
+                <input type="text" class="form-control" asp-for="RoleName" placeholder="RoleName">
+                <label>Name</label>
+            </div>
+        </div>
+        <div class="col-lg-4 mt-3">
+            <div class="form-floating">
+                <input type="text" class="form-control" asp-for="Description" placeholder="Description">
+                <label>Description</label>
+            </div>
+        </div>
+   </div>
+   <div class="text-lg-start text-center">
+      <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+   </div>
+</form>

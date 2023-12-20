@@ -1,0 +1,92 @@
+﻿@model BookShop.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+    <nav>
+        <ol class="breadcrumb">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Home</a>
+            <a asp-controller="Home" asp-area="AdminRoles" asp-action="Index" class="breadcrumb-item">Danh sách sản phẩm</a>
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item active">Thông tin sản phẩm</a>
+        </ol>
+    </nav>
+</div>
+<h5 class="card-title">Thông tin sản phẩm : @Model.ProductName</h5>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td>ID:</td>
+            <td>@Model.ProductId</td>
+        </tr>
+        <tr>
+            <td>Tên sản phẩm:</td>
+            <td>@Model.ProductName</td>
+        </tr>
+        <tr>
+            <td>Mô tả ngắn:</td>
+            <td>@Model.ShortDesc</td>
+        </tr>
+        <tr>
+            <td>Mô tả:</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>ID Danh mục:</td>
+            <td>@Model.CateId</td>
+        </tr>
+        <tr>
+            <td>Danh mục:</td>
+            <td>@Model.Cate.CateName</td>
+        </tr>
+        <tr>
+            <td>Giá giảm:</td>
+            <td>@Model.Discount</td>
+        </tr>
+        <tr>
+            <td>Mô tả:</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>Ngày tạo:</td>
+            <td>@Model.DateCreated</td>
+        </tr>
+        <tr>
+            <td>Ngày chỉnh sửa:</td>
+            <td>@Model.DateModified</td>
+        </tr>
+        <tr>
+            <td>Tiêu đề:</td>
+            <td>@Model.Title</td>
+        </tr>
+        <tr>
+            <td>MetaDesc:</td>
+            <td>@Model.MetaDesc</td>
+        </tr>
+        <tr>
+            <td>MetaKey:</td>
+            <td>@Model.MetaKey</td>
+        </tr>
+        <tr>
+            <td>Tags:</td>
+            <td>@Model.Tags</td>
+        </tr>
+        <tr>
+            <td>Ảnh đại diện:</td>
+            <td>
+                <img src="/assets/images/@Model.Thumb" alt="@Model.Title" width="200" height="200" />
+            </td>
+        </tr>
+        <tr>
+            <td>Xác nhận xóa: </td>
+            <td>
+                <form asp-action="Delete" asp-controller="AdminProducts" asp-route-id="@Model.ProductId">
+                    <input type="hidden" asp-for="ProductId" />
+                    <input type="submit" value="Xác nhận xóa" class="btn btn-danger" /> |
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>

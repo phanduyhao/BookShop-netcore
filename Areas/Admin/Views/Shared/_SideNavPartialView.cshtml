@@ -1,0 +1,78 @@
+﻿<aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link " asp-controller="Home" asp-action="Index">
+                <i class="bi bi-grid"></i>
+                <span>Bảng điều khiển</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">
+                <i class="bi bi-menu-button-wide"></i><span>Quản lý đơn hàng</span>
+            </a>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Quản lý sản phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index">
+                        <i class="bi bi-circle"></i><span>Quản lý danh mục</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">
+                        <i class="bi bi-circle"></i><span>Danh sách sản phẩm</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý khách hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a asp-area="Admin" asp-controller="AdminCustomers" asp-action="Index">
+                        <i class="bi bi-circle"></i><span>Danh sách khách hàng</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-area="Admin" asp-controller="AdminFeedBacks" asp-action="Index">
+                <i class="bi bi-menu-button-wide"></i><span>Quản lý phản hồi</span>
+            </a>
+        </li><!-- End Charts Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Quản lý hệ thống</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a asp-area="Admin" asp-controller="AdminAccount" asp-action="Index">
+                        <i class="bi bi-circle"></i><span>Quản lý tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">
+                        <i class="bi bi-circle"></i><span>Quản lý quyền truy cập</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-area="Admin" asp-controller="AdminNews" asp-action="Index">
+                <i class="bi bi-card-list"></i>
+                <span>Quản lý tin tức</span>
+            </a>
+        </li>
+    </ul>
+</aside>

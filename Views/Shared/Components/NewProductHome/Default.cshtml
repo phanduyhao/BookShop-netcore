@@ -1,0 +1,89 @@
+﻿@model IList<Product>
+    @foreach (var menu in Model)
+    {
+    float dsc = (menu.Price.Value - menu.Discount.Value);
+    float poy = dsc / menu.Price.Value * 100;
+    double poy2 = Math.Round(poy);
+    string url = $"/{menu.Alias}-{menu.ProductId}.html";
+    <form>
+
+        <div>
+            <div class="card card-product grid-2 bg-transparent border-0">
+                <figure class="card-img-top position-relative mb-7 overflow-hidden">
+                    <a href="@url" class="hover-zoom-in d-block" title="Shield Conditioner">
+                        <img data-src="~/images/products/@menu.Thumb" class="img-fluid loaded" alt="@menu.ProductName" style="height:260px" loading="lazy" src="~/images/products/@menu.Thumb" data-ll-status="loaded">
+                    </a>
+                    @if (menu.Discount.Value > 0)
+                    {
+                        <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                    }
+                    else
+                    {
+                        <div class="d-none"><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                    }
+                    <div class="position-absolute d-flex z-index-2 product-actions  vertical">
+                        <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action quick-view" href="@url" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Xem nhanh" tabindex="-1">
+                            <span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
+                                <svg class="icon icon-eye-light">
+                                    <use xlink:href="#icon-eye-light"></use>
+                                </svg>
+                            </span>
+                        </a>
+                        <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action wishlist" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Thêm danh sách yêu thích" tabindex="-1">
+                            <svg class="icon icon-star-light">
+                                <use xlink:href="#icon-star-light"></use>
+                            </svg>
+                        </a>
+                        <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action compare" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh" tabindex="-1">
+                            <svg class="icon icon-arrows-left-right-light">
+                                <use xlink:href="#icon-arrows-left-right-light"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="add-to-cart" data-quantity="1">
+                        <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                        <input hidden type="number" data-val="true" data-val-required="The ProductId field is required." name="ProductId" value="@menu.ProductId">
+                    </div>
+                </figure>
+                <div class="card-body text-center p-0">
+                    <span class="d-flex align-items-center price text-dark fw-bold justify-content-center mb-3 fs-6">
+                        @if (menu.Discount == 0 || menu.Discount == null)
+                        {
+                            <ins class="text-decoration-none me-4">@menu.Price.Value.ToString("#,##0") VNĐ</ins>
+
+
+                        }
+                        else
+                        {
+                            <del class=" text-body fw-500 me-4 fs-15px">@menu.Price.Value.ToString("#,##0") VNĐ</del>
+
+                            <ins class="text-decoration-none">@menu.Discount.Value.ToString("#,##0") VNĐ</ins>
+
+                        }
+                    </span>
+
+                    <h4 class="product-title card-text text-primary-hover text-dark fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="/ao-len-mong-25.html" tabindex="-1">@menu.ProductName</a></h4>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="rate text-primary fs-14px d-flex align-items-center">
+                            <svg class="icon star">
+                                <use xlink:href="#star"></use>
+                            </svg>
+                            <svg class="icon star">
+                                <use xlink:href="#star"></use>
+                            </svg>
+                            <svg class="icon star">
+                                <use xlink:href="#star"></use>
+                            </svg>
+                            <svg class="icon star">
+                                <use xlink:href="#star"></use>
+                            </svg>
+                            <svg class="icon star-o">
+                                <use xlink:href="#star-o"></use>
+                            </svg>
+                        </span><span class="reviews ms-4">2947 lượt xem</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    }

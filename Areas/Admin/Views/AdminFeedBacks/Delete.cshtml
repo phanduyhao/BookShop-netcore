@@ -1,0 +1,40 @@
+﻿@model BookShop.Models.FeedBack
+
+@{
+    ViewData["Title"] = "Xóa";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h3>Bạn chắc chắn muốn xóa phản hồi này?</h3>
+<div>
+    <hr />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Nội dung phản hồi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContentFeed)
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdFeedBack" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> |
+        <a asp-action="Index">Trở lại</a>
+    </form>
+</div>

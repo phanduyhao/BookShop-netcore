@@ -1,0 +1,121 @@
+﻿@model BookShop.Models.News
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = $"/tin-tuc/{Model.Alias}-{Model.PostId}.html";
+    List<News> Baivietlienquan = ViewBag.Baivietlienquan;
+
+}
+<section class="z-index-2 position-relative pb-2 mb-12 " data-animated-id="1">
+
+    <div class="bg-gray-weak mb-3">
+        <div class="container">
+            <nav class="py-4 lh-30px" aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center py-1">
+                    <li class="breadcrumb-item"><a title="Trang chủ" href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a title="Shop" href="/tin-tuc.html">Tin tức</a></li>
+                    <li class="breadcrumb-item"><a title="Shop" href="#">@Model.Title</a></li>
+
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+    
+    </div>
+    <div class="blog-area section-space-y-axis-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-detail-item">
+                        <div class="blog-content text-start pb-0">
+                            <div class="blog-meta text-dim-gray pb-3">
+                                <ul>
+                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>@Model.CreateDate</li>
+                                    <li>
+                                        <span class="comments me-3">
+                                            <a href="javascript:void(0)">2 Comments</a>
+                                        </span>
+                                        <span class="link-share">
+                                            <a href="javascript:void(0)">Share</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="short-desc mb-4 mb-7">@Model.ShortDesc</p>
+                            @Html.Raw(Model.MaxDesc)
+                            <div class="tag-wtih-social">
+                                <div class="tag">
+                                    <span class="title text-primary">Tags:</span>
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)">Furniture,</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">Electronic,</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">Fashion</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="social-link">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-pinterest-p"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-dribbble"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="">
+                <h4 class=" mb-1">Bài viết liên quan</h4>
+                <hr />
+
+                <div class="row">
+                    @if (Baivietlienquan != null && Baivietlienquan.Count() > 0)
+                    {
+                        foreach (var item in Baivietlienquan)
+                        {
+                            string _url = $"/tin-tuc/{item.Alias}-{item.PostId}.html";
+                            <div class="col-md-6 col-lg-4">
+                                <article class="card card-post-grid-1 bg-transparent border-0 animate__fadeInUp animate__animated" data-animate="fadeInUp">
+                                    <figure class="card-img-top position-relative mb-10">
+                                        <a href="@_url"class="hover-shine hover-zoom-in d-block" title="@item.Title">
+                                            <img data-src="~/images/new/@item.Thumb" class="img-fluid w-100 loaded" alt="@item.Title" style="height:210px" loading="lazy" src="~/images/new/@item.Thumb" data-ll-status="loaded">
+                                        </a>
+                                        <a href="@_url" class="btn btn-hover-bg-dark btn-hover-text-light fw-500 btn-gray-weak post-cat position-absolute top-100 start-50 translate-middle py-2 px-7 border-0" title="Life style">Life style</a>
+                                    </figure>
+                                    <div class="card-body text-center px-md-9 py-0">
+                                        <h4 class="card-title lh-base mb-9"><a class="text-decoration-none" href="@_url" title="@item.Title">@item.Title</a></h4>
+                                        <ul class="post-meta list-inline lh-1 d-flex flex-wrap justify-content-center m-0">
+                                            <li class="list-inline-item border-end pe-5 me-5">By <a href="@_url" title="Admin">Admin</a></li>
+                                            <li class="list-inline-item">@item.CreateDate.Value.ToShortDateString()</li>
+                                        </ul>
+                                    </div>
+                                </article>
+                            </div>
+
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

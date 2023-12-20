@@ -1,0 +1,35 @@
+﻿@model BookShop.ModelViews.LoginViewModel
+
+@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="wrapper-login w-lg-25 w-sm-50 w-100 mx-auto mt-15" data-animated-id="1">
+    <div class="title-text">
+        <div class="title signup text-primary">Đăng nhập</div>
+    </div>
+    <div class="form-container">
+        
+        <div class="form-inner">
+
+            <form asp-action="login" class="signup">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="field">
+                    <input type="text" asp-for="Email2" placeholder="Tên đăng nhập" required="">
+                    <span asp-validation-for="Email2" class="text-danger"></span>
+
+                </div>
+                <div class="field">
+                    <input type="password" asp-for="Password" placeholder="Mật khẩu" required="">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                </div>
+                <div class="field btn p-0">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Đăng nhập">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

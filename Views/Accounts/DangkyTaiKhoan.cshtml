@@ -1,0 +1,64 @@
+﻿@model BookShop.ModelViews.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="modal fade"
+     id="signInModal"
+     tabindex="-1"
+     aria-labelledby="signInModal"
+     aria-hidden="true">
+    <div class="modal-dialog h-100 d-flex flex-columr">
+        <div class="modal-content my-auto">
+*@
+<div class="wrapper-login w-lg-25 w-sm-50 w-100 mx-auto mt-15" data-animated-id="1">
+    <div class="title-text">
+        <div class="title signup text-primary">Đăng kí</div>
+    </div>
+    <div class="form-container">
+
+        <div class="form-inner">
+
+            <form asp-action="DangkyTaiKhoan" class="signup">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="field">
+                    <input type="text" asp-for="FullName" placeholder="Họ và Tên" required="">
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+
+                </div>
+                <div class="field">
+                    <input type="email" asp-for="Email2" placeholder="Địa chỉ Email" required="">
+                    <span asp-validation-for="Email2" class="text-danger"></span>
+
+                </div>
+                <div class="field">
+                    <input type="tel" asp-for="Phone" placeholder="Số điện thoại" required="">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+
+                </div>
+                <div class="field">
+                    <input type="password" asp-for="Password" placeholder="Mật khẩu" required="">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+
+                </div>
+                <div class="field">
+                    <input type="password" asp-for="ConfirmPassword" placeholder="Nhập lại mật khẩu" required="">
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                </div>
+                <div class="field btn p-0">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Đăng kí">
+                </div>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8By5GHXj3GNKk8XTIu3rs3gcrCA0wkN3OqfpuC_weqWB9yuC9uI3ADxUv_x1yJDWfJPFc_vY5-teihraVEjYbGaxJGCjYzVb5xCaiK8m9B5R9ZWxNnIUDkVuk96lpBR5kw1iNXHkpyNL0b0-GkaLP-w">
+            </form>
+        </div>
+    </div>
+</div>
+
+@*</div>@*
+    </div>
+</div>
+*@

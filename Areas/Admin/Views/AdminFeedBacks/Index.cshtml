@@ -1,0 +1,101 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<BookShop.Models.FeedBack>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    int PageNext = CurrentPage + 1;
+    ViewData["Title"] = "Danh sách phản hồi : Page " + ViewBag.CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+<div class="main-content">
+    <div class="page-header">
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Trang chủ</a>
+                <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminFeedBacks" asp-action="Index">Danh sách phản hồi: page @ViewBag.CurrentPage</a>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+          <table class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting">ID</th>
+                                        <th class="sorting">Họ tên</th>
+                                        <th class="sorting">Email</th>
+                                        <th class="sorting">Nội dung</th>
+                                        <th class="sorting text-end">Tác vụ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="">
+                                                    @item.IdFeedBack
+                                                </td>
+                                                <td>
+                                                    @item.FullName
+                                                </td>
+                                               
+                                                <td>@item.Email</td>
+                                                <td>@item.ContentFeed</td>
+
+                                                <td class="text-end">
+                                                    <a asp-area="Admin" asp-controller="AdminFeedBacks" asp-action="Details" asp-route-id="@item.IdFeedBack" class="btn btn-success">Chi tiết</a>
+                                                <a asp-area="Admin" asp-controller="AdminFeedBacks" asp-action="Delete" asp-route-id="@item.IdFeedBack" class="btn btn-danger">Xóa</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="pagination-area pt-10">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if (CurrentPage > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminFeedBacks?page=@(CurrentPage - 1)" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminFeedBacks" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item active"><a class="page-link" href="/Admin/AdminFeedBacks?page=@CurrentPage">@CurrentPage</a></li>
+                                        <li class="page-item"><a class="page-link" href="/Admin/AdminFeedBacks?page=@PageNext">@PageNext</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/Admin/AdminFeedBacks?page=@PageNext" aria-label="Next">
+                                                <span class="fa fa-chevron-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </table>
+
+            </div>
+        </div>
+    </div>
+   </div>

@@ -1,0 +1,147 @@
+﻿@model BookShop.Models.FeedBack
+
+@{
+    ViewData["Title"] = "Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<section data-animated-id="1">
+
+    <div class="bg-gray-weak py-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-site py-0 d-flex justify-content-center">
+                <li class="breadcrumb-item">
+                    <a class="text-decoration-none text-body" href="/">Trang chủ</a>
+                </li>
+                <li class="breadcrumb-item active pl-0 d-flex align-items-center" aria-current="page">Liên hệ với chúng tôi</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="container pt-13">
+        <div class="text-center">
+            <div class="text-center">
+                <h2 class="fs-36px mb-9">Giữ liên lạc với chúng tôi</h2>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-12 mb-md-0">
+                <div class="d-flex align-items-start">
+                    <div class="pe-lg-9 pe-8">
+                        <svg class="icon fs-2">
+                            <use xlink:href="#icon-box-07"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="fs-5 mb-6">Địa chỉ</h3>
+                        <div class="fs-6">
+                            <p class="mb-2 pb-4 fs-6">Trường Đại học Vinh</p><p>Thành phố Vinh<br>tỉnh Nghệ An.</p>
+                        </div>
+                        <a href="#" class="text-decoration-none border-bottom border-dark fw-semibold fs-6">Gửi ngay</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 mb-12 mb-md-0">
+                <div class="d-flex align-items-start">
+                    <div class="pe-lg-9 pe-8">
+                        <svg class="icon fs-2">
+                            <use xlink:href="#icon-box-05"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="fs-5 mb-6">Liên hệ:</h3>
+                        <div class="fs-6">
+                            <p class="mb-3 fs-6">Điện thoại:<span class="text-dark">1234567890</span></p><p class="mb-3 fs-6">Hotline:<span class="text-dark">1234567890</span></p><p class="mb-0 fs-6">Email:<span class="text-dark">Trantien@gmail.com</span></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 mb-12 mb-md-0">
+                <div class="d-flex align-items-start">
+                    <div class="pe-lg-9 pe-8">
+                        <svg class="icon fs-2">
+                            <use xlink:href="#icon-box-06"></use>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="fs-5 mb-6">Thời gian thực hiện</h3>
+                        <div class="fs-6">
+                            <dl class="d-flex mb-0"><dt class="pe-3 fs-6 text-dark fw-500" style="width: 110px">Thứ 2 – Thứ 6:</dt><dd class="mb-0"> 08:30 – 20:00</dd></dl><dl class="d-flex mb-0"><dt class="pe-3 fs-6 text-dark fw-500" style="width: 110px">Thứ 7 & CN:</dt><dd class="mb-0"> 09:30 – 21:30</dd></dl>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mx-auto mt-20">
+            <iframe class="w-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60464.127409970795!2d105.64887453524436!3d18.70846164723123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3139cddf0bf20f23%3A0x86154b56a284fa6d!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBWaW5o!5e0!3m2!1svi!2s!4v1681975326215!5m2!1svi!2s" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+    </div>
+</section>
+<section class="py-16 py-lg-18 mx-auto" style="max-width: 750px" data-animated-id="3">
+    <div class="container text-center">
+        <h2 class="mb-10 fs-3">Gửi tin nhắn</h2>
+        <form class="contact-form" method="post" asp-action="Contact">
+            <div class="row mb-8 mb-md-10">
+                <div class="col-md-6 col-12 mb-8 mb-md-0">
+                    <input asp-for="FullName" type="text" class="form-control border-0 input-focus" placeholder="Họ tên">
+                </div>
+                <div class="col-md-6 col-12">
+                    <input asp-for="Email" type="email" class="form-control border-0 input-focus" placeholder="Email">
+                </div>
+            </div>
+            <textarea asp-for="ContentFeed" class="form-control border-0 mb-6 input-focus" placeholder="Tin nhắn" rows="7"></textarea>
+            <div class="form-check mb-9 text-start">
+                <input  class="form-check-input rounded-0" type="checkbox"  id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Lưu tên, email của bạn trong trình duyệt này cho lần tiếp theo tôi nhận xét.
+                </label>
+            </div>
+            <input type="submit" value="Gửi" class=" btn btn-dark btn-outline-primary text-light"/>
+        </form>
+    </div>
+</section>
+
+@*
+<h1>Contact</h1>
+
+<h4>FeedBack</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Contact">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContentFeed" class="control-label"></label>
+                <input asp-for="ContentFeed" class="form-control" />
+                <span asp-validation-for="ContentFeed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Contact" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+*@

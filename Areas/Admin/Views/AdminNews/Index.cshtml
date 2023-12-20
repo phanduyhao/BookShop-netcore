@@ -1,0 +1,121 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<BookShop.Models.News>
+
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    int PageNext = CurrentPage + 1;
+    ViewData["Title"] = "Danh sách Tin tức : Page " + ViewBag.CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+
+<div class="main-content">
+    <div class="page-header">
+        <div class="header-sub-title">
+            <nav class="breadcrumb breadcrumb-dash">
+                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home me-1"></i>Trang chủ</a>
+                <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminNews" asp-action="Index">Danh sách Tin tức: page @ViewBag.CurrentPage</a>
+            </nav>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row mt-4">
+                <div class="col-lg-8">
+                    
+                </div>
+                <div class="col-lg-4 text-end mb-5">
+                    <a class="btn btn-primary" asp-controller="AdminNews" asp-action="Create">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Thêm Tin tức</span>
+                    </a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                 <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-hover e-commerce-table dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th class="sorting">ID</th>
+                                        <th class="sorting">Tiêu đề</th>
+                                        <th class="sorting">Trạng thái</th>
+                                        <th class="sorting">Ngày tạo</th>
+                                        <th class="sorting">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td class="">
+                                                    @item.PostId
+                                                </td>
+                                                <td>
+                                                    @item.Title
+                                                </td>
+                                                <td>
+                                                    @if(item.Published == true){
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="badge badge-success badge-dot me-3"></div>
+                                                            <div>Public</div>
+                                                        </div>
+                                                    }else{
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="badge badge-success badge-dot me-3"></div>
+                                                            <div>Non-Public</div>
+                                                        </div>
+                                                    }
+                                                </td>
+                                                <td>@item.CreateDate</td>
+                                                <td class="text-end">
+                                                    <a asp-area="Admin" asp-controller="AdminNews" asp-action="Details" asp-route-id="@item.PostId" class="btn btn-success">Chi tiết</a>
+                                                    <a asp-area="Admin" asp-controller="AdminNews" asp-action="Edit" asp-route-id="@item.PostId" class="btn btn-warning">Chỉnh sửa</a>
+                                                    <a asp-area="Admin" asp-controller="AdminNews" asp-action="Delete" asp-route-id="@item.PostId" class="btn btn-danger">Xóa</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="pagination-area pt-10">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center">
+                                        @if (CurrentPage > 1)
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminNews?page=@(CurrentPage - 1)" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" href="/Admin/AdminNews" aria-label="Previous">
+                                                    <span class="fa fa-chevron-left"></span>
+                                                </a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item active"><a class="page-link" href="/Admin/AdminNews?page=@CurrentPage">@CurrentPage</a></li>
+                                        <li class="page-item"><a class="page-link" href="/Admin/AdminNews?page=@PageNext">@PageNext</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="/Admin/AdminNews?page=@PageNext" aria-label="Next">
+                                                <span class="fa fa-chevron-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

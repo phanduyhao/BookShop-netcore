@@ -1,0 +1,32 @@
+﻿@model BookShop.Models.Role
+
+@{
+    ViewData["Title"] = "Thông tin quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="pagetitle">
+    <nav>
+        <ol class="breadcrumb">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Home</a>
+            <a asp-controller="Home" asp-area="AdminRoles" asp-action="Index" class="breadcrumb-item">Danh sách quyền truy cập</a>
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item active">Thông tin quyền truy cập</a>
+        </ol>
+    </nav>
+</div>
+<h5 class="card-title">Thông tin quyền truy cập</h5>
+<table class="table table-striped">
+    <tbody>
+        <tr>
+            <td>ID:</td>
+            <td>@Model.RoleId</td>
+        </tr>
+        <tr>
+            <td>Tên quyền truy cập:</td>
+            <td>@Model.RoleName</td>
+        </tr>
+        <tr>
+            <td>Mô tả:</td>
+            <td>@Model.Description</td>
+        </tr>
+    </tbody>
+</table>

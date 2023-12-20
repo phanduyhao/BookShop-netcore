@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BookShop.Models.Role>
+
+@{
+    ViewData["Title"] = "Quản lý quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+
+    <nav>
+        <ol class="breadcrumb">
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Trang chủ</a>
+            <a asp-controller="AdminRoles" asp-area="Admin" asp-action="Index" class="breadcrumb-item">Danh sách quyền truy cập</a>
+            <a asp-controller="Home" asp-area="Admin" asp-action="Index" class="breadcrumb-item active">Thông tin quyền truy cập</a>
+        </ol>
+    </nav>
+    <div class="card-body">
+        <div class="row mt-4">
+            <div class="col-lg-8">
+            </div>
+            <div class="col-lg-4 text-end mb-3">
+                <a class="btn btn-primary" asp-controller="AdminRoles" asp-action="Create">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Thêm quyền truy cập</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.RoleId</th>
+                    <td>@item.RoleName</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Details" asp-route-id="@item.RoleId" class="btn btn-success">Chi tiết</a>
+                        <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Edit" asp-route-id="@item.RoleId" class="btn btn-warning">Chỉnh sửa</a>
+                        <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Delete" asp-route-id="@item.RoleId" class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

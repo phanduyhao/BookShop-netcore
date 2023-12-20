@@ -1,0 +1,408 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<BookShop.Models.Product>
+
+@{
+    Category category = ViewBag.CurrentCate;
+    ViewData["TiTle"] = category.CateName + " " + ViewBag.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int PageCurrent = ViewBag.CurrentPage;
+    int PageNext = PageCurrent + 1;
+    List<Product> lsProduct2s = ViewBag.SanPham;
+
+}
+<section class="page-title z-index-2 position-relative" data-animated-id="1">
+    <div class="bg-gray-weak">
+        <div class="container">
+            <nav class="py-4 lh-30px" aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center py-1">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@category.CateName</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="text-center py-13">
+        <div class="container">
+            <h2 class="mb-0">@category.CateName</h2>
+        </div>
+    </div>
+</section>
+<section class="container container-xxl" data-animated-id="2">
+    <div class="tool-bar mb-11 align-items-center justify-content-between d-lg-flex">
+        <div class="tool-bar-left mb-6 mb-lg-0">Chúng tôi tìm được <span class="text-dark fw-semibold">@Model.Count()</span> sản phẩm cho bạn</div>
+        <div class="tool-bar-right align-items-center d-flex ">
+            <ul class="list-unstyled d-flex align-items-center list-inline me-lg-7 me-0 mb-0 ">
+                <li class="list-inline-item me-7">
+                    <a class="fs-32px text-dark-hover  text-muted" href="../shop/shop-layout-v2.html">
+                        <svg class="icon icon-squares-four">
+                            <use xlink:href="#icon-squares-four"></use>
+                        </svg>
+                    </a>
+                </li>
+                <li class="list-inline-item me-0">
+                    <a class="fs-32px text-dark-hovertext-dark" href="#">
+                        <svg class="icon icon-list">
+                            <use xlink:href="#icon-list"></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <ul class="list-unstyled d-flex align-items-center list-inline mb-0 ms-auto">
+                <li class="list-inline-item me-0">
+                    <select class="form-select" name="orderby">
+                        <option selected="selected">Default sorting</option>
+                        <option value="popularity">Sort by popularity</option>
+                        <option value="rating">Sort by average rating</option>
+                        <option value="date">Sort by latest</option>
+                        <option value="price">Sort by price: low to high</option>
+                        <option value="price-desc">Sort by price: high to low</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<div class="container container-xxl mb-18 pb-3" data-animated-id="3">
+    <div class="row">
+        <div class="col-lg-9 order-lg-1">
+           <div class="col-lg-12">
+                <div class="pagination-area pt-10">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+
+                            @if (PageCurrent > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@category.Alias?page=@(PageCurrent - 1)" aria-label="Previous">
+                                        <span class="fa fa-chevron-left"></span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@category.Alias" aria-label="Previous">
+                                        <span class="fa fa-chevron-left"></span>
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="page-item active"><a class="page-link" href="@category.Alias?page=@PageCurrent">@PageCurrent</a></li>
+                            <li class="page-item"><a class="page-link" href="@category.Alias?page=@PageNext">@PageNext</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="@category.Alias?page=@PageNext" aria-label="Next">
+                                    <span class="fa fa-chevron-right"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row gy-11">
+                @if (Model != null & Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        float dsc = (item.Price.Value - item.Discount.Value);
+                        float poy = dsc / item.Price.Value * 100;
+                        double poy2 = Math.Round(poy);
+                        string url = $"/{item.Alias}-{item.ProductId}.html";
+                        <div class="col-12">
+                            <div class="card flex-md-row card-product list bg-transparent border-0 animate__fadeInUp animate__animated" data-animate="fadeInUp">
+                                <figure class="card-img-top col-md-4 position-relative mb-7 overflow-hidden">
+                                    <a href="@url" class="hover-zoom-in d-block" title="Shield Conditioner">
+                                        <img data-src="~/images/products/@item.Thumb" class="img-fluid loaded" alt="@item.Title" style="height:300px; width:350px" loading="lazy" src="~/images/products/@item.Thumb" data-ll-status="loaded">
+                                    </a>
+                                    @if (item.Discount.Value > 0)
+                                    {
+                                        <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="d-none"><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                                    }
+                                    <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary"></span></div>
+                                    <div class="position-absolute d-flex z-index-2 product-actions  horizontal">
+                                        <a class="text-black bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Thêm giỏ hàng">
+                                            <svg class="icon icon-shopping-bag-open-light">
+                                                <use xlink:href="#icon-shopping-bag-open-light"></use>
+                                            </svg>
+                                        </a><a class="text-black bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Xem nhanh">
+                                            <svg class="icon icon-eye-light">
+                                                <use xlink:href="#icon-eye-light"></use>
+                                            </svg>
+                                        </a>
+                                        <a class="text-black bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Thêm danh sách yêu thích">
+                                            <svg class="icon icon-star-light">
+                                                <use xlink:href="#icon-star-light"></use>
+                                            </svg>
+                                        </a>
+                                        <a class="text-black bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action" href="#" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="So sánh">
+                                            <svg class="icon icon-arrows-left-right-light">
+                                                <use xlink:href="#icon-arrows-left-right-light"></use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </figure>
+                                <div class="card-body col-md-8 flex-md-grow-1 p-0 pt-md-9">
+                                    <span class="d-flex align-items-center price text-black fw-bold mb-3 fs-18px">
+                                        @if (item.Discount == 0 || item.Discount == null)
+                                        {
+                                            <ins class="text-decoration-none me-4">@item.Price.Value.ToString("#,##0") VNĐ</ins>
+
+
+                                        }
+                                        else
+                                        {
+                                            <del class=" text-body fw-500 me-4 fs-15px">@item.Price.Value.ToString("#,##0") VNĐ</del>
+
+                                            <ins class="text-decoration-none">@item.Discount.Value.ToString("#,##0") VNĐ</ins>
+
+                                        }
+                                    </span>
+                                    <h4 class="product-title card-text text-primary-hover text-black fs-4 fw-semibold mb-5"><a class="text-decoration-none text-reset" href="@url">@item.ProductName</a></h4>
+                                    <div class="d-flex align-items-center mb-5">
+                                        <span class="rate text-primary fs-14px d-flex align-items-center">
+                                            <svg class="icon star">
+                                                <use xlink:href="#star"></use>
+                                            </svg>
+                                            <svg class="icon star">
+                                                <use xlink:href="#star"></use>
+                                            </svg>
+                                            <svg class="icon star">
+                                                <use xlink:href="#star"></use>
+                                            </svg>
+                                            <svg class="icon star-o">
+                                                <use xlink:href="#star-o"></use>
+                                            </svg>
+                                            <svg class="icon star-o">
+                                                <use xlink:href="#star-o"></use>
+                                            </svg>
+                                        </span>
+                                        <span class="reviews ms-4">2947 reviews</span>
+                                    </div>
+                                    <p class="product-desc mb-10">@item.ShortDesc</p>
+@*                                     <div class="d-flex flex-wrap horizontal them-gio-hang">
+                                        <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary ">Thêm vào giỏ hàng</a>
+                                        <input hidden id="@item.ProductId" asp-for="@item.ProductId" />
+                                    </div>*@
+                                    <div class="add-to-cart2" data-quantity="1">
+                                        <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                                        <input hidden type="number" data-val="true" data-val-required="The ProductId field is required." name="ProductId" value="@item.ProductId">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+            </div>
+            <div class="col-lg-12">
+                <div class="pagination-area pt-10">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+
+                            @if (PageCurrent > 1)
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@category.Alias?page=@(PageCurrent - 1)" aria-label="Previous">
+                                        <span class="fa fa-chevron-left"></span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="page-item">
+                                    <a class="page-link" href="@category.Alias" aria-label="Previous">
+                                        <span class="fa fa-chevron-left"></span>
+                                    </a>
+                                </li>
+                            }
+
+                            <li class="page-item active"><a class="page-link" href="@category.Alias?page=@PageCurrent">@PageCurrent</a></li>
+                            <li class="page-item"><a class="page-link" href="@category.Alias?page=@PageNext">@PageNext</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="@category.Alias?page=@PageNext" aria-label="Next">
+                                    <span class="fa fa-chevron-right"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-3">
+            <div class="sidebar-area">
+                <form class="d-flex mb-5" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+                    <button class="btn btn-outline-success p-0 w-25" type="submit">
+                        <i class="bi bi-search fs-4"></i>
+                    </button>
+                </form>
+                <div class="widgets-area mb-9">
+                    <h3 class="widgets-title mb-5">Lọc theo</h3>
+                    <div class="widgets-item">
+                        <ul class="widgets-checkbox " style="list-style:none;">
+                            <li>
+                                <input class="input-checkbox" type="checkbox" id="refine-item">
+                                <label class="label-checkbox mb-0" for="refine-item">
+                                    Giảm giá
+                                    <span>4</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input class="input-checkbox" type="checkbox" id="refine-item-2" checked>
+                                <label class="label-checkbox mb-0" for="refine-item-2">
+                                    Mới nhất
+                                    <span>4</span>
+                                </label>
+                            </li>
+                            <li>
+                                <input class="input-checkbox" type="checkbox" id="refine-item-3">
+                                <label class="label-checkbox mb-0" for="refine-item-3">
+                                    Còn hàng
+                                    <span>4</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widgets-area widgets-filter mb-9">
+                    <h3 class="widgets-title mb-5">Lọc theo giá</h3>
+
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Nhập giá" aria-label="Search">
+                        <button class="btn btn-outline-success p-0 w-25" type="submit">
+                            Lọc
+                        </button>
+                    </form>
+
+
+                </div>
+                <div class="widgets-area mb-9">
+                    <h2 class="widgets-title mb-5">Sản phẩm hàng đầu</h2>
+                    <div class="d-column">
+                        @if (lsProduct2s != null)
+                        {
+                            foreach (var item in lsProduct2s)
+                            {
+                                string url = $"/{item.Alias}-{item.ProductId}.html";
+                                <div class="mb-6 col-md-3 w-100">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <a href="@url" class="hover-zoom-in d-block" title="@item.ProductName" tabindex="-1">
+                                                <img src="~/images/products/@item.Thumb" data-src="~/images/products/@item.Thumb" class="img-fluid lazy-image " alt="@item.Title " loading="lazy" data-ll-status="native" style="height:90px; width:90px ">
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8  p-0">
+                                            <span class="text-dark fw-bold mb-3 d-column">
+                                                @if (item.Discount == 0 || item.Discount == null)
+                                                {
+                                                    <ins class="text-decoration-none fs-12px text-dark fw-semibold me-4">@item.Price.Value.ToString("#,##0") VNĐ</ins>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-12">
+                                                        <del class=" text-body fw-500 me-4 fs-12px">@item.Price.Value.ToString("#,##0") VNĐ</del>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <ins class="text-decoration-none fs-12px text-dark fw-semibold">@item.Discount.Value.ToString("#,##0") VNĐ</ins>
+                                                    </div>
+                                                }
+                                            </span>
+
+                                            <h4 class="product-title card-text text-primary-hover text-dark fs-12px fw-500 mb-0"><a class="text-decoration-none text-reset" href="@url" tabindex="-1">@item.ProductName</a></h4>
+                                            <div class="d-flex align-items-center ">
+                                                <span class="rate text-primary fs-12px d-flex align-items-center">
+                                                    <svg class="icon star">
+                                                        <use xlink:href="#star"></use>
+                                                    </svg>
+                                                    <svg class="icon star">
+                                                        <use xlink:href="#star"></use>
+                                                    </svg>
+                                                    <svg class="icon star">
+                                                        <use xlink:href="#star"></use>
+                                                    </svg>
+                                                    <svg class="icon star">
+                                                        <use xlink:href="#star"></use>
+                                                    </svg>
+                                                    <svg class="icon star-o">
+                                                        <use xlink:href="#star-o"></use>
+                                                    </svg>
+                                                </span><span class="reviews ms-4 fs-12px">2947 lượt xem</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="widgets-area">
+                    <h2 class="widgets-title mb-5">Tag</h2>
+                    <div class="widgets-item">
+                        <ul class="widgets-tags">
+                            <li>
+                                <a href="javascript:void(0)">Clothing</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Accessories</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">For Men</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Women</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">Fashion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".add-to-cart2").click(function () {
+                var productDiv = $(this);
+                var productid = productDiv.find("[name='ProductId']").val();
+                var soLuong = productDiv.data("quantity");
+
+                $.ajax({
+                    url: '/api/cart/add',
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productid,
+                        amount: soLuong
+                    },
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (error) {
+                        alert("There was an error posting the data to the server: " + error.responseText);
+                    }
+                });
+            });
+
+            function loadHeaderCart() {
+                $('#miniCart').load("/AjaxContent/HeaderCart");
+                $('#numberCart').load("/AjaxContent/NumberCart");
+            }
+        });
+    </script>
+
+}
+
+

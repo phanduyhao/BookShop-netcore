@@ -1,0 +1,103 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<BookShop.Models.Category>
+@{
+    int CurrentPage = ViewBag.CurrentPage;
+    int PageNext = CurrentPage + 1;
+    ViewData["Title"] = "Danh sách Danh mục" + CurrentPage;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <span class="breadcrumb-item active">Danh sách Danh mục : trang @CurrentPage</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body  mt-4">
+        <div class="row mb-7">
+
+            <div class="col-lg-10 text-right">
+            </div>
+            <div class="col-lg-2">
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminCategories" asp-action="Create"><i class="fa-solid fa-plus"></i><span class="ps-3">Thêm Danh mục</span></a>
+            </div>
+        </div>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Ảnh</th>
+                        <th>Tên danh mục</th>
+                        <th>Trạng thái</th>
+                        <th>Ordering</th>
+                        <th>Tác vụ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            string url = $"/category/{item.Alias}";
+                            <tr>
+                                <td>@item.CateId</td>
+                                <td>  <img class="img-fluid rounded" style="width:70px; height:70px" src="~/images/category/@item.ImageCate"></td>
+
+                                <td><a target="_blank" class="text-dark" href="@url">@item.CateName</a></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="badge badge-success badge-dot me-4"></div>
+                                        <div>Public</div>
+                                    </div>
+                                </td>
+                                <td>@item.Ordering</td>
+                                <td>
+                                    <a class="btn btn-primary btn-tone me-2" asp-area="Admin" asp-controller="AdminCategories" asp-action="Details" asp-route-id="@item.CateId">Chi tiết</a>
+                                    <a class="btn btn-secondary btn-tone me-2" asp-area="Admin" asp-controller="AdminCategories" asp-action="Edit" asp-route-id="@item.CateId">Chỉnh sửa</a>
+                                    <a class="btn btn-success btn-tone me-2" asp-area="Admin" asp-controller="AdminCategories" asp-action="Delete" asp-route-id="@item.CateId">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+            <div class="pagination-area pt-10">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        @if (CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/Admin/AdminCategories?page=@(CurrentPage - 1)" aria-label="Previous">
+                                    <span class="fa fa-chevron-left"></span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/Admin/AdminCategories" aria-label="Previous">
+                                    <span class="fa fa-chevron-left"></span>
+                                </a>
+                            </li>
+                        }
+
+                        <li class="page-item active"><a class="page-link" href="/Admin/AdminCategories?page=@CurrentPage">@CurrentPage</a></li>
+                        <li class="page-item"><a class="page-link" href="/Admin/AdminCategories?page=@PageNext">@PageNext</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="/Admin/AdminCategories?page=@PageNext" aria-label="Next">
+                                <span class="fa fa-chevron-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+

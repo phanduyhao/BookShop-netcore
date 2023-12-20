@@ -1,0 +1,788 @@
+﻿@model BookShop.Models.Product
+
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> lsProducts = ViewBag.SanPham;
+}
+<style>
+    .add-to-cart{
+        padding:0;
+    }
+</style>
+<section class="z-index-2 position-relative pb-2 mb-12 " data-animated-id="1">
+    
+    <div class="bg-gray-weak mb-3">
+        <div class="container">
+            <nav class="py-4 lh-30px" aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center py-1">
+                    <li class="breadcrumb-item"><a title="Trang chủ" href="/">Trang chủ</a></li>
+                            <li class="breadcrumb-item"><a title="Shop" href="/shop.html">Cửa hàng</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@Model.ProductName</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<section class="container pt-15 border-bottom" data-animated-id="2">
+    <div class="row ">
+        <div class="col-md-6 pe-13">
+            <div class="position-relative">
+                <div class="position-absolute z-index-2 w-100 d-flex justify-content-end">
+                    <div class="p-6">
+                        <a href="#" class="d-flex align-items-center justify-content-center product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Thêm danh sách yêu thích">
+                            <svg class="icon fs-4">
+                                <use xlink:href="#icon-star-light"></use>
+                            </svg>
+                        </a>
+                        <a href="#" class="d-flex align-items-center justify-content-center mt-5 product-gallery-action rounded-circle" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh">
+                            <svg class="icon fs-4">
+                                <use xlink:href="#icon-arrows-left-right-light"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div id="slider" class="slick-slider slick-slider-arrow-inside slick-slider-dots-inside slick-slider-dots-light g-0 slick-initialized" data-slick-options="{&quot;arrows&quot;:false,&quot;asNavFor&quot;:&quot;#slider-thumb&quot;,&quot;dots&quot;:false,&quot;fade&quot;:true,&quot;slidesToShow&quot;:1}">
+                    <div class="slick-list draggable" style="height: 705.328px;">
+                        <div class="slick-track" style="opacity: 1; width: 2116px;">
+                            <a href="~/images/products/@Model.Thumb" data-gallery="gallery1" class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 529px; position: relative; left: 0px; top: 0px; z-index: 999; opacity: 1;">
+                                <img src="~/images/products/@Model.Thumb" class="h-auto img-fluid">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-06.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -529px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-06.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-07.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -1058px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-07.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                            <a href="../assets/images/shop/product-gallery-08.jpg" data-gallery="gallery1" class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 529px; position: relative; left: -1587px; top: 0px; z-index: 998; opacity: 0;">
+                                <img src="../assets/images/shop/product-gallery-08.jpg" class="h-auto" width="540" height="720">
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+           
+        </div>
+        <div class="col-md-6 pt-md-0 pt-10">
+            <p class="d-flex align-items-center mb-6">
+                @if (Model.Discount == 0 || Model.Discount == null)
+                {
+                    <ins class="text-decoration-none text-dark fw-semibold me-4">@Model.Price.Value.ToString("#,##0") VNĐ</ins>
+                }
+                else
+                {
+                    <del class=" text-body fw-500 me-4 fs-15px">@Model.Price.Value.ToString("#,##0") VNĐ</del>
+                    <ins class="text-decoration-none text-dark fw-semibold">@Model.Discount.Value.ToString("#,##0") VNĐ</ins>
+
+                }
+            </p>
+            <h4 class="mb-4 pb-2">
+                @Model.ProductName
+            </h4>
+            <div class="d-flex align-items-center fs-15px mb-6">
+                <p class="mb-0 fw-semibold text-dark">4.86</p>
+                <ul class="list-inline d-flex mb-0 px-6 rating-result">
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="llist-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="list-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                    <li class="llist-inline-item me-0 fs-12px">
+                        <i class="fas fa-star"></i>
+                    </li>
+                </ul>
+            </div>
+            <p class="fs-15px">@Model.ShortDesc</p>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-5 me-4 pe-2 align-text-bottom">
+                        <use xlink:href="#icon-eye-light"></use>
+                    </svg>
+                    17 người xem
+                </span>
+            </p>
+
+            <iform class="mb-9 pb-2">
+                <div class="row align-items-end">
+                    <div class="form-group col-sm-4">
+                        <label class="text-dark fw-semibold fs-15px pb-6" for="number">Số lượng: </label>
+                        <div class="input-group position-relative w-100">
+                            <a href="#" class="shop-down position-absolute translate-middle-y top-50 start-0 ps-7 product-info-2-minus"><i class="far fa-minus"></i></a>
+                            <input name="txtsoLuong" type="text" id="txtsoLuong" class="product-info-2-quantity form-control w-100 px-6 text-center border-0 fs-18px fw-bold" value="1" required="">
+                            <a href="#" class="shop-up position-absolute translate-middle-y top-50 end-0 pe-7 product-info-2-plus">
+                                <i class="far fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 pt-9 mt-2 mt-sm-0 pt-sm-0 add-to-cart">
+                        <a href="javascript:void(0)" class="btn-hover-bg-primary btn btn-lg fs-18px btn-dark w-100 border-0">
+                            Thêm giỏ hàng
+                        </a>
+                        <input hidden asp-for="ProductId" />
+                    </div>
+                </div>
+
+            </iform>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-28px me-2 pe-4">
+                        <use xlink:href="#icon-delivery-1"></use>
+                    </svg>Thời gian nhận hàng:
+                </span> Feb 3 - Feb 14,2021
+            </p>
+            <p class="mb-4 pb-2">
+                <span class="text-dark">
+                    <svg class="icon fs-28px me-2 pe-4">
+                        <use xlink:href="#icon-Package"></use>
+                    </svg>Miễn phí vận chuyển & trả lại:
+                </span> Tất cả các đơn hàng trên 200.000 VNĐ
+            </p>
+            <div class="card border-0 bg-gray rounded text-center">
+                <div class="pt-8 px-5">
+                    <img class="img-fluid" src="../assets/images/shop/product-info-2.png" alt="pay" width="357" height="28">
+                </div>
+                <div class="card-body pt-6 pb-7">
+                    <p class="fs-14px fw-normal mb-0">Guarantee safe &amp; secure checkout</p>
+                </div>
+            </div>
+            <ul class="list-unstyled border-top pt-7 mt-7">
+                <li class="d-flex mb-4 pb-2">
+                    <span class="text-dark fw-semibold fs-14px">Id:</span>
+                    <span class="ps-4">@Model.ProductId</span>
+                </li>
+                <li class="d-flex mb-4 pb-2">
+                    <span class="text-dark fw-semibold fs-14px">Danh mục:</span>
+                    <a href="danhmuc/@Model.Cate.Alias" class="ps-4">@Model.Cate.CateName</a>
+                </li>
+            </ul>
+
+            <ul class="list-inline d-flex justify-content-start mb-0 fs-6">
+                <li class="list-inline-item">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-facebook-f me-4"></i> Facebook</a>
+                </li>
+                <li class="list-inline-item ms-7">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-instagram me-4"></i> Instagram</a>
+                </li>
+                <li class="list-inline-item ms-7">
+                    <a class="text-body text-decoration-none product-info-share product-info-share" href="#"><i class="fab fa-youtube me-4"></i> Youtube</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</section>
+
+
+<section class=" pb-12 pb-lg-20 border-bottom pt-lg-12 pt-8" data-animated-id="4">
+    <div class="product-details-tab">
+        <ul class="nav nav-tabs border-0 justify-content-center pb-12 d-none d-md-flex" id="productTabs" role="tablist">
+            <li class="nav-item w-100 w-md-auto" role="presentation">
+                <button class="nav-link m-auto fw-semibold py-0 px-8 fs-4 fs-lg-3 border-0 text-dark active" id="product-details-tab" data-bs-toggle="tab" data-bs-target="#product-details" type="button" role="tab" aria-controls="product-details" aria-selected="true">Chi tiết sản phẩm</button>
+            </li>
+
+
+        </ul>
+        <div class="tab-content" style="background: rgb(243 243 243)">
+            <div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+                <h5 class="mb-0">
+                    <button class="btn lh-2 fs-18 py-3 px-6 shadow-none w-100 border text-primary" data-control="product-details-tab">Chi tiết sản phẩm</button>
+                </h5>
+            </div>
+            <div class="tab-pane active container" id="product-details" role="tabpanel" aria-labelledby="product-details-tab">
+                <div>
+                    @Html.Raw(Model.Description)
+                </div>
+            </div>
+
+
+            <div class="card-header border-0 bg-transparent px-0 py-4 product-tabs-mobile d-block d-md-none">
+                <h5 class="mb-0">
+                    <button class="btn lh-2 fs-18 py-3 px-6 shadow-none w-100 border text-primary" data-control="ingredients-tab">Ingredients</button>
+                </h5>
+            </div>
+            <div class="tab-pane" id="ingredients" role="tabpanel" aria-labelledby="ingredients-tab">
+                <div class="pb-3">
+                    <div class="table-responsive mb-5">
+                        <table class="table table-borderless mb-0">
+                            <tbody>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">CAS</td>
+                                    <td class="text-end py-5 ps-5 pe-0">92128-82-0, 9057-02-7</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">INCI</td>
+                                    <td class="text-end py-5 ps-5 pe-0">
+                                        Nannochloropsis Oculata (micro algae)
+                                        extract, pullulan
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Composition</td>
+                                    <td class="text-end py-5 ps-5 pe-0">
+                                        Nannochloropsis Oculata (micro algae)
+                                        extract, pullulan, water, ethanol
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Appearance</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Yellow to amber, viscous liquid</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Solubility</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Soluble in water &amp; ethanol</td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-0 py-5 pe-5 text-dark">Storage</td>
+                                    <td class="text-end py-5 ps-5 pe-0">Store refrigerated (4-8oC / 39-46oF)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mb-0">
+                        Perfect for Equestrian Trang chủs or every horse lover. Designer premium
+                        signature aluminum alloy all Arthur Court is compliance with FDA
+                        regulations. Aluminum Serveware can be chilled in the freezer or
+                        refrigerator and warmed in the oven to 350. Wash by hand with mild dish
+                        soap and dry immediately – do not put in the dishwasher. Comes in Gift
+                        Box perfect for Equestrian Trang chủ or Horse lover in your life.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="container pb-15 pb-lg-20 pt-lg-12 pt-8" data-animated-id="6">
+    <div class="text-center">
+        <h2 class="mb-12">Có thể bạn thích</h2>
+    </div>
+
+    <div class="row">
+        @if(lsProducts != null){
+            foreach(var item in lsProducts){
+                float dsc = (item.Price.Value - item.Discount.Value);
+                float poy = dsc / item.Price.Value * 100;
+                double poy2 = Math.Round(poy);
+                string url = $"/{item.Alias}-{item.ProductId}.html";
+                <form class="mb-6 col-md-3" >
+                    <div class="card card-product grid-2 bg-transparent border-0">
+                        <figure class="card-img-top position-relative mb-7 overflow-hidden">
+                            <a href="@url" class="hover-zoom-in d-block" title="@item.ProductName" tabindex="-1">
+                                <img src="~/images/products/@item.Thumb" data-src="~/images/products/@item.Thumb" class="img-fluid lazy-image w-100" alt="@item.Title " loading="lazy" data-ll-status="native" style="height:260px ">
+                            </a>
+                            @if(item.Discount.Value > 0){
+                                <div class="position-absolute product-flash z-index-2 "><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                            }else{
+                                <div class="d-none"><span class="badge badge-product-flash on-sale bg-primary">@poy2%<span></div>
+                            }
+                            <div class="position-absolute d-flex z-index-2 product-actions  vertical">
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action quick-view" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Xem nhanh" tabindex="-1">
+                                    <span data-bs-toggle="modal" data-bs-target="#quickViewModal" class="d-flex align-items-center justify-content-center">
+                                        <svg class="icon icon-eye-light">
+                                            <use xlink:href="#icon-eye-light"></use>
+                                        </svg>
+                                    </span>
+                                </a>
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action wishlist" href="#" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Thêm danh sách yêu thích" tabindex="-1">
+                                    <svg class="icon icon-star-light">
+                                        <use xlink:href="#icon-star-light"></use>
+                                    </svg>
+                                </a>
+                                <a class="text-dark bg-white bg-dark-hover text-light-hover rounded-circle square shadow-sm product-action compare" href="../shop/compare.html" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="So sánh" tabindex="-1">
+                                    <svg class="icon icon-arrows-left-right-light">
+                                        <use xlink:href="#icon-arrows-left-right-light"></use>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="add-to-cart">
+                                <a href="javascript:void(0)" class="btn btn-add-to-cart btn-dark btn-hover-bg-primary btn-hover-border-primary position-absolute z-index-2 text-nowrap fs-14px" tabindex="-1">Thêm vào giỏ hàng</a>
+                                <input hidden asp-for="ProductId" />
+                            </div>
+                        </figure>
+                        <div class="card-body text-center p-0">
+                            <span class="d-flex align-items-center price text-dark fw-bold justify-content-center mb-3 fs-6">
+                                @if (item.Discount == 0 || item.Discount == null)
+                                {
+                                    <ins class="text-decoration-none text-dark fw-semibold me-4">@item.Price.Value.ToString("#,##0") VNĐ</ins>
+                                }
+                                else
+                                {
+                                    <del class=" text-body fw-500 me-4 fs-15px">@item.Price.Value.ToString("#,##0") VNĐ</del>
+                                    <ins class="text-decoration-none text-dark fw-semibold">@item.Discount.Value.ToString("#,##0") VNĐ</ins>
+
+                                }
+                            </span>
+
+                            <h4 class="product-title card-text text-primary-hover text-dark fs-15px fw-500 mb-3"><a class="text-decoration-none text-reset" href="@url" tabindex="-1">@item.ProductName</a></h4>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <span class="rate text-primary fs-14px d-flex align-items-center">
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star">
+                                        <use xlink:href="#star"></use>
+                                    </svg>
+                                    <svg class="icon star-o">
+                                        <use xlink:href="#star-o"></use>
+                                    </svg>
+                                </span><span class="reviews ms-4">2947 lượt xem</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            }
+        }
+    </div>
+</section>
+@*Comment*@
+<section class="container pt-15 pb-15 pt-lg-17 pb-lg-20 border-top border-1" data-animated-id="8">
+	<div class="text-center"><h3 class="mb-12">Phản hồi từ khách hàng</h3></div>
+
+	<div class="mb-11">
+		<div class=" d-md-flex justify-content-between align-items-center">
+	<div class=" d-flex align-items-center"><h4 class="fs-1 me-9 mb-0">4.86</h4>
+		<div class="p-0"><div class="d-flex align-items-center fs-6 ls-0 mb-4">
+	<div class="rating">
+		<div class="empty-stars">
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+		</div>
+		<div class="filled-stars" style="width: 96%">
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+		</div>
+	</div></div><p class="mb-0">2947 Reviews, 18 Q&amp;As</p>
+		</div>
+	</div>
+	<div class="text-md-end mt-md-0 mt-7">
+		<a href="#customer-review" class="btn btn-outline-dark border border-2 fs-6" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="customer-review"><svg class="icon">
+				<use xlink:href="#icon-Pencil"></use>
+			</svg>
+			Wire A Review
+		</a>
+	</div>
+</div>
+
+	</div>
+	<div class="collapse mb-14" id="customer-review">
+	<form class="product-review-form">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group mb-7">
+					<label class="mb-4 fs-6 fw-semibold text-dark" for="reviewName">Name</label>
+					<input id="reviewName" class="form-control" type="text" name="name">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group mb-4">
+					<label class="mb-4 fs-6 fw-semibold text-dark" for="reviewEmail">Email</label>
+					<input id="reviewEmail" type="email" name="email" class="form-control">
+				</div>
+			</div>
+		</div>
+		<div>
+			<p class="mt-4 mb-5 fs-6 fw-semibold text-dark">Your Rating*</p>
+			<div class="form-group mb-6 d-flex justify-content-start">
+				<div class="rate-input">
+					<input type="radio" id="star5" name="rate" value="5" style="">
+					<label for="star5" title="text" class="mb-0 mr-1 lh-1">
+						<i class="far fa-star"></i>
+					</label>
+					<input type="radio" id="star4" name="rate" value="5" style="">
+					<label for="star4" title="text" class="mb-0 mr-1 lh-1">
+						<i class="far fa-star"></i>
+					</label>
+					<input type="radio" id="star3" name="rate" value="5" style="">
+					<label for="star3" title="text" class="mb-0 mr-1 lh-1">
+						<i class="far fa-star"></i>
+					</label>
+					<input type="radio" id="star2" name="rate" value="5" style="">
+					<label for="star2" title="text" class="mb-0 mr-1 lh-1">
+						<i class="far fa-star"></i>
+					</label>
+					<input type="radio" id="star1" name="rate" value="5" style="">
+					<label for="star1" title="text" class="mb-0 mr-1 lh-1">
+						<i class="far fa-star"></i>
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group mb-7">
+			<label class="mb-4 fs-6 fw-semibold text-dark" for="reviewTitle">Title of Review:</label>
+			<input id="reviewTitle" type="text" name="title" class="form-control">
+		</div>
+		<div class="form-group mb-10">
+			<label class="mb-4 fs-6 fw-semibold text-dark" for="reviewMessage">How was your overall experience?</label>
+			<textarea id="reviewMessage" class="form-control" name="message" rows="5"></textarea>
+		</div>
+		<div class="d-flex">
+			<div class="me-4">
+				<div class="input-group align-items-center">
+					<input type="file" name="img" class="form-control" id="reviewrAddPhoto">
+				</div>
+			</div><button type="submit" class="btn btn-dark btn-hover-bg-primary btn-hover-border-primary fw-semibold">Submit Now</button>
+		</div>
+	</form>
+</div>
+
+
+
+	<div class=" mt-12">
+	<h3 class="fs-5">2947 Reviews</h3>
+	
+	<div class="border-bottom pb-7 pt-10">
+		<div class="d-flex align-items-center mb-6"><div class="d-flex align-items-center fs-15px ls-0">
+	<div class="rating">
+		<div class="empty-stars">
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+		</div>
+		<div class="filled-stars" style="width: 100%">
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+		</div>
+	</div></div>
+			
+			<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
+			<span class="fs-14">5  day ago</span>
+		</div>
+
+		<div class="d-flex justify-content-start align-items-center mb-5">
+			<img src="../assets/images/single-product-01.png" class="me-6 lazy-image" width="60" height="60" alt="Avatar" loading="lazy" data-ll-status="native">
+			<div class="">
+				<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
+				<p class="mb-0">/ Orlando, FL</p>
+			</div>
+		</div>
+		<p class="fw-semibold fs-6 text-dark mb-5">Nền tảng yêu thích</p>
+		<p class="mb-10 fs-6">
+            Tôi đặt hàng các mẫu để không mắc lỗi khi chọn màu sắc của mình Là một sản phẩm tốt như một bóng râm nhẹ nhưng mẫu không chứa đủ sản phẩm để che phủ da và quyết định rõ ràng, 
+            xung quanh mắt tôi đã sử dụng "bánh quy đào". Tôi đã sử dụng với sơn lót tất cả các mặt mu và kết cấu hoàn thiện là tốt. Cuối cùng cho làn da rám nắng latin của tôi chọn "đào vàng" 
+            Nhưng hết hàng kem lót tôi nghĩ là một kết hợp tốt.
+        </p>
+
+		
+		<div class="mb-10"><img src="../assets/images/single-product-03.jpg" class="mx-3" alt="">
+			<img src="../assets/images/single-product-02.jpg" class="mx-3" alt="">
+			
+		</div>
+		
+		<div class="d-flex justify-content-end align-items-center">
+			<a href="#" class="fs-14px mb-0 text-secondary">Đánh giá này có hữu ích không?</a>
+			<p class="mb-0 ms-7 text-dark">
+				<svg class="icon icon-like align-baseline">
+					<use xlink:href="#icon-like"></use>
+				</svg>
+				10
+			</p>
+			<p class="mb-0 ms-6 text-dark">
+				<svg class="icon icon-unlike align-baseline">
+					<use xlink:href="#icon-unlike"></use>
+				</svg>
+				1
+			</p>
+		</div>
+	</div>
+	
+	<div class="border-bottom pb-7 pt-10">
+		<div class="d-flex align-items-center mb-6"><div class="d-flex align-items-center fs-15px ls-0">
+	<div class="rating">
+		<div class="empty-stars">
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star-o">
+					<use xlink:href="#star-o"></use>
+				</svg>
+			</span>
+		</div>
+		<div class="filled-stars" style="width: 80%">
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+			<span class="star">
+				<svg class="icon star text-primary">
+					<use xlink:href="#star"></use>
+				</svg>
+			</span>
+		</div>
+	</div></div>
+			
+			<span class="fs-3px mx-5"><i class="fas fa-circle"></i></span>
+			<span class="fs-14">3  day ago</span>
+		</div>
+
+		<div class="d-flex justify-content-start align-items-center mb-5">
+			<img src="../assets/images/single-product-01.png" class="me-6 lazy-image" width="60" height="60" alt="Avatar" loading="lazy" data-ll-status="native">
+			<div class="">
+				<h5 class="mt-0 mb-4 fs-14px text-uppercase ls-1">JENNIFER C.</h5>
+				<p class="mb-0">/ Georgia</p>
+			</div>
+		</div>
+		<p class="fw-semibold fs-6 text-dark mb-5">Good as light coverage</p>
+		<p class="mb-10 fs-6">The foundation feels light on my face, and the color matches great. Also the customer service is phenomenal. I would purchase again.</p>
+
+		
+		<div class="d-flex justify-content-end align-items-center">
+			<a href="#" class="fs-14px mb-0 text-secondary">Was This Review Helpful?</a>
+			<p class="mb-0 ms-7 text-dark">
+				<svg class="icon icon-like align-baseline">
+					<use xlink:href="#icon-like"></use>
+				</svg>
+				12
+			</p>
+			<p class="mb-0 ms-6 text-dark">
+				<svg class="icon icon-unlike align-baseline">
+					<use xlink:href="#icon-unlike"></use>
+				</svg>
+				4
+			</p>
+		</div>
+	</div>
+	
+</div>
+
+
+	<nav class="pt-8">
+	<ul class="pagination justify-content-center align-items-center mb-0 fs-16 font-weight-600">
+		<li class="page-item fs-18 d-none d-sm-block">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#" tabindex="-1"><i class="far fa-angle-double-left"></i></a>
+		</li>
+		<li class="page-item">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#">1</a>
+		</li>
+		<li class="page-item active" aria-current="page">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#">2</a>
+		</li>
+		<li class="page-item">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#">3</a>
+		</li>
+		<li class="page-item">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#">...</a>
+		</li>
+		<li class="page-item">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#">6</a>
+		</li>
+		<li class="page-item fs-18 d-none d-sm-block">
+			<a class="page-link rounded-circle w-40px h-40 p-0 justify-content-center align-items-center d-flex" href="#"><i class="far fa-angle-double-right"></i></a>
+		</li>
+	</ul>
+</nav>
+
+</section>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $(".add-to-cart").click(function () {
+                    var productid = $('#ProductId').val();
+                    var soLuong = $('#txtsoLuong').val();
+                    $.ajax({
+                        url: '/api/cart/add',
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid,
+                            amount: soLuong
+                        },
+                        success: function (response) {
+                            if (response.result == 'Redirect') {
+                                window.location = response.url;
+                            }
+                            else {
+                                loadHeaderCart(); //Add Product success
+                                location.reload();
+                            }
+                            console.log(response); // log to the console to see whether it worked
+                        },
+                        error: function (error) {
+                            alert("There was an error posting the data to the server: " + error.responseText);
+                        }
+                    });
+                });
+                });
+            function loadHeaderCart() {
+                $('#miniCart').load("/AjaxContent/HeaderCart");
+                $('#numberCart').load("/AjaxContent/NumberCart");
+            }
+        });
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var quantityInput = document.getElementById('txtsoLuong');
+                var minusButton = document.querySelector('.product-info-2-minus');
+                var plusButton = document.querySelector('.product-info-2-plus');
+
+                minusButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    updateQuantity(-1);
+                });
+
+                plusButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    updateQuantity(1);
+                });
+
+                function updateQuantity(change) {
+                    var currentValue = parseInt(quantityInput.value, 10);
+                    var newValue = currentValue + change;
+
+                    // Giảm số lượng không dưới 1
+                    if (newValue < 1) {
+                        newValue = 1;
+                    }
+
+                    quantityInput.value = newValue;
+                }
+            });
+
+    </script>
+
+}

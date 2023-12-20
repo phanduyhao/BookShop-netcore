@@ -1,0 +1,14 @@
+﻿@model IList<Category>
+<ul class="list-unstyled mb-0">
+
+    @foreach (var menu in Model)
+    {
+        <li>
+            <a href="/danhmuc/@menu.Alias"
+                class="border-hover text-decoration-none py-3 d-block">
+                <span class="border-hover-target">@menu.CateName</span>
+            </a>
+        </li>
+    }
+
+</ul>
